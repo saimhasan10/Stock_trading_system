@@ -1,0 +1,44 @@
+{% extends "core/base.html" %} {% block content %}
+<h2>Live Stock Updates</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for stock in stocks %}
+    <tr>
+      <td>{{ stock.name }}</td>
+      <td class="stock-price" data-stock-id="{{ stock.id }}">
+        {{ stock.price }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+<script>
+  const stockSocket = new WebSocket(
+    "ws://" + window.location.host + "/ws/stock_updates/"
+  );
+
+  stockSocket.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+    const stockData = data["stock_data"];
+
+    document.querySelectorAll(".stock-price").forEach((priceElement) => {
+      if (
+        priceElement.getAttribute("data-stock-id") === stockData.id.toString()
+      ) {
+        priceElement.textContent = stockData.price;
+      }
+    });
+  };
+
+  stockSocket.onclose = function (e) {
+    console.error("Stock WebSocket closed unexpectedly");
+  };
+</script>

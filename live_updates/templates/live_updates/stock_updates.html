@@ -1,0 +1,18 @@
+{% extends "core/base.html" %} {% block content %}
+<h2>Live Stock Updates</h2>
+<ul id="stock-list"></ul>
+
+<script>
+  const socket = new WebSocket(
+    "ws://" + window.location.host + "/ws/live_updates/"
+  );
+
+  socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    const stockList = document.getElementById("stock-list");
+    const newItem = document.createElement("li");
+    newItem.innerText = `Stock: ${data.stock_symbol}, Price: ${data.price}`;
+    stockList.appendChild(newItem);
+  };
+</script>
+{% endblock %}

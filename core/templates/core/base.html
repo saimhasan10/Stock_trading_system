@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Stock Trading System{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="{% url 'home' %}" class="text-xl font-bold">Stock Trading</a>
+        <div class="space-x-4">
+          {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="px-4 py-2">Dashboard</a>
+          <a href="{% url 'buy_stock' %}" class="px-4 py-2">Buy</a>
+          <a href="{% url 'sell_stock' %}" class="px-4 py-2">Sell</a>
+          <a href="{% url 'trade_history' %}" class="px-4 py-2">History</a>
+          <a href="{% url 'profile' %}" class="px-4 py-2">Profile</a>
+          <a href="{% url 'logout' %}" class="px-4 py-2">Logout</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="px-4 py-2">Login</a>
+          <a href="{% url 'signup' %}" class="px-4 py-2">Sign Up</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-6">{% block content %}{% endblock %}</div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center p-4 mt-6">
+      <p>&copy; 2025 Stock Trading System</p>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %} {% block title %}Dashboard{% endblock %}
+<!--  -->
+{% block content %}
+<div
+  class="flex justify-center items-center min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8"
+>
+  <div class="max-w-4xl w-full bg-white rounded-lg p-6 shadow-lg">
+    <h1 class="font-bold text-3xl text-center text-gray-800">
+      Trading Dashboard
+    </h1>
+    <div>
+      <h3>Your Balance: {{ balance }}</h3>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <a
+        href="{% url 'buy_stock' %}"
+        class="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded text-center"
+      >
+        Buy Stock
+      </a>
+      <a
+        href="{% url 'sell_stock' %}"
+        class="block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded text-center"
+      >
+        Sell Stock
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

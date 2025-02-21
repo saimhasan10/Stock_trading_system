@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %} {% block title %}Buy Stock{% endblock %}
+<!--  -->
+{% block content %}
+<div
+  class="flex justify-center items-center min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8"
+>
+  <div class="max-w-md w-full bg-white rounded-lg p-6 shadow-lg">
+    <h1 class="font-bold text-2xl text-center text-gray-800">Sell Stock</h1>
+    <form method="post" class="space-y-4 mt-4">
+      {% csrf_token %} {% for field in form %}
+      <div>
+        <label
+          class="block text-gray-700 text-sm font-bold mb-1"
+          for="{{ field.id_for_label }}"
+        >
+          {{ field.label }}
+        </label>
+        {{ field }} {% if field.errors %}
+        <p class="text-red-600 text-sm italic mt-1">{{ field.errors.0 }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Confirm Sale
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
